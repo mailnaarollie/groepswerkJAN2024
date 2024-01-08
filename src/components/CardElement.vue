@@ -32,6 +32,9 @@ const toggleCompleted = (cardId, todoId) => {
       <div class="col-md-3 mb-3" v-for="card in cards" :key="card.id">
         <div class="card">
           <div class="card-body bg-body-tertiary shadow rounded-2">
+            <div class="d-flex">
+              <h4>Add title</h4><i class="bi bi-pencil-square text-black bg-white"></i>
+            </div>
             <div class="todo-list">
               <form @submit.prevent="addTodoItem(card)">
                 <div class="d-flex align-items-center">
