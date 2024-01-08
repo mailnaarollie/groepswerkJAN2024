@@ -48,7 +48,9 @@ const saveTitle = (card) => {
               <h4 v-if="!card.editingTitle" @click="editTitle(card)" class="clickable-title">
                 {{ card.title ? card.title : 'Add Title' }}
               </h4>
-              <input v-show="card.editingTitle" v-model="card.title" @blur="saveTitle(card)" @keyup.enter="saveTitle(card)" />
+              <input style="border: 1px solid #ccc; border-radius: 5px;padding: 5px; margin: 0; width: 100%; box-sizing: border-box;" v-show="card.editingTitle" v-model="card.title" @blur="saveTitle(card)" @keyup.enter="saveTitle(card)" />
+              <i class="bi bi-pencil-square text-black bg-white"></i>
+
             </div>
             <div class="todo-list">
               <ul class="list-group mt-2">
@@ -63,8 +65,8 @@ const saveTitle = (card) => {
               <form @submit.prevent="addTodoItem(card)">
                 <div class="d-flex align-items-center">
                   <input class="form-control text-center my-auto" v-model="card.newTodo" type="text"
-                         placeholder="voeg een nieuwe taak toe"/>
-                  <button class="btn btn-success mt-2" type="submit">+</button>
+                         placeholder="nieuwe taak"/>
+                  <button class="btn btn-success mt-2 ms-2" type="submit">+</button>
                 </div>
               </form>
             </div>
