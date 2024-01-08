@@ -22,26 +22,35 @@ const deleteTodoItem = (cardId, todoId) => {
 const toggleCompleted = (cardId, todoId) => {
   store.toggleCompleted(cardId, todoId);
 };
+
+
+const editTitle = (card) => {
+  card.editingTitle = true;
+};
+
+const saveTitle = (card) => {
+  card.editingTitle = false;
+  // Save the updated title in your store or wherever you are storing the data
+  if (card.title.trim() === "") {
+    // Handle the case where the title is empty if needed
+  }
+};
 </script>
 
 <template>
   <div class="container">
-    <button @click="addCard" class="btn btn-primary mb-3">+ voeg een nieuwe taak toe</button>
+    <button @click="addCard" class="btn btn-primary mb-3">+ voeg een nieuwe bord toe</button>
     <div class="row">
       <div class="col-md-3 mb-3" v-for="card in cards" :key="card.id">
         <div class="card">
           <div class="card-body bg-body-tertiary shadow rounded-2">
             <div class="d-flex">
-              <h4>Add title</h4><i class="bi bi-pencil-square text-black bg-white"></i>
+              <h4 v-if="!card.editingTitle" @click="editTitle(card)" class="clickable-title">
+                {{ card.title ? card.title : 'Add Title' }}
+              </h4>
+              <input v-show="card.editingTitle" v-model="card.title" @blur="saveTitle(card)" @keyup.enter="saveTitle(card)" />
             </div>
             <div class="todo-list">
-              <form @submit.prevent="addTodoItem(card)">
-                <div class="d-flex align-items-center">
-                  <input class="form-control text-center my-auto" v-model="card.newTodo" type="text"
-                          placeholder="voeg taak toe"/>
-                  <button class="btn btn-success mt-2" type="submit">+</button>
-                </div>
-              </form>
               <ul class="list-group mt-2">
                 <li class="list-group-item" v-for="todo in card.todos" :key="todo.id" :class="{ 'list-group-item-success': todo.completed }">
                   {{ todo.item }}
@@ -51,6 +60,13 @@ const toggleCompleted = (cardId, todoId) => {
                   </span>
                 </li>
               </ul>
+              <form @submit.prevent="addTodoItem(card)">
+                <div class="d-flex align-items-center">
+                  <input class="form-control text-center my-auto" v-model="card.newTodo" type="text"
+                         placeholder="voeg een nieuwe taak toe"/>
+                  <button class="btn btn-success mt-2" type="submit">+</button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -63,6 +79,10 @@ const toggleCompleted = (cardId, todoId) => {
 <style scoped>
 .completed {
   text-decoration: line-through;
+}
+.clickable-title {
+  cursor: pointer;
+  user-select: none;
 }
 </style>
 ```
