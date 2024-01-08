@@ -37,6 +37,15 @@ export const useCardsStore = defineStore('cards', {
                 card.todos = card.todos.filter(todo => todo.id !== todoId);
             }
         },
+        deleteCard(cardId) {
+            // Find the index of the card with the given cardId
+            const cardIndex = this.cards.findIndex(card => card.id === cardId);
+
+            // If the card is found, remove it from the array
+            if (cardIndex !== -1) {
+                this.cards.splice(cardIndex, 1);
+            }
+        },
         toggleCompleted(cardId, todoId) {
             const card = this.cards.find(card => card.id === cardId);
             if (card) {
