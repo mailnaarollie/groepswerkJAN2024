@@ -1,4 +1,3 @@
-
 <script setup>
 import { useCardsStore } from '@/stores/CardElement.js';
 
@@ -27,7 +26,7 @@ const toggleCompleted = (cardId, todoId) => {
 
 <template>
   <div class="container">
-    <button @click="addCard" class="btn btn-primary mb-3">+</button>
+    <button @click="addCard" class="btn btn-primary mb-3">+ voeg een nieuwe taak toe</button>
     <div class="row">
       <div class="col-md-3 mb-3" v-for="card in cards" :key="card.id">
         <div class="card">
