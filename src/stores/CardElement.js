@@ -1,6 +1,7 @@
 // stores/cards.js
 import { defineStore } from 'pinia';
 
+
 export const useCardsStore = defineStore('cards', {
     state: () => ({
         cards: []
@@ -55,7 +56,10 @@ export const useCardsStore = defineStore('cards', {
                 }
             }
         },
-
+        moveCard(fromIndex, toIndex, card) {
+            this.cards.splice(fromIndex, 1);
+            this.cards.splice(toIndex, 0, card);
+        },
 
     }
 });
