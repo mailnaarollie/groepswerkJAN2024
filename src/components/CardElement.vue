@@ -50,8 +50,6 @@ const saveTitle = (card) => {
                 {{ card.title ? card.title : 'Add Title' }}
               </h4>
               <input style="border: 1px solid #ccc; border-radius: 5px;padding: 5px; margin: 0; width: 100%; box-sizing: border-box;" v-show="card.editingTitle" v-model="card.title" @blur="saveTitle(card)" @keyup.enter="saveTitle(card)" />
-              <i class="bi bi-pencil-square text-black bg-white"></i>
-
             </div>
             <div class="todo-list">
               <ul class="list-group mt-2">
