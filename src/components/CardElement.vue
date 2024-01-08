@@ -35,6 +35,7 @@ const saveTitle = (card) => {
     // Handle the case where the title is empty if needed
   }
 };
+
 </script>
 
 <template>
@@ -44,7 +45,7 @@ const saveTitle = (card) => {
       <div class="col-md-3 mb-3" v-for="card in cards" :key="card.id">
         <div class="card">
           <div class="card-body bg-body-tertiary shadow rounded-2">
-            <div class="d-flex">
+            <div class="d-flex justify-content-between align-items-center mb-3">
               <h4 v-if="!card.editingTitle" @click="editTitle(card)" class="clickable-title">
                 {{ card.title ? card.title : 'Add Title' }}
               </h4>
