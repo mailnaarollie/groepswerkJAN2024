@@ -1,26 +1,26 @@
 <script setup>
 import { useCardsStore } from '@/stores/CardElement.js';
 
-const store = useCardsStore();
-const { cards } = store;
+const store2 = useCardsStore();
+const { cards2 } = store2;
 
-const addCard = () => {
-  store.addCard();
+const addCard2 = () => {
+  store2.addCard();
 };
 
 const addTodoItem = (card) => {
   if (card.newTodo.trim()) {
-    store.addTodo(card.id, card.newTodo.trim());
-    store.updateNewTodo(card.id, '');
+    store2.addTodo(card.id, card.newTodo.trim());
+    store2.updateNewTodo(card.id, '');
   }
 };
 
 const deleteTodoItem = (cardId, todoId) => {
-  store.deleteTodo(cardId, todoId);
+  store2.deleteTodo(cardId, todoId);
 };
 
 const toggleCompleted = (cardId, todoId) => {
-  store.toggleCompleted(cardId, todoId);
+  store2.toggleCompleted(cardId, todoId);
 };
 
 
@@ -36,14 +36,11 @@ const saveTitle = (card) => {
   }
 };
 
+
+
 </script>
 
 <template>
-  <div class="container">
-    <button @click="addCard" class="btn btn-primary mb-3">+ voeg een nieuwe bord toe</button>
-    <div class="row">
-      <div class="col-md-3 mb-3" v-for="card in cards" :key="card.id">
-        <card-component/>
         <div class="card">
           <div class="card-body bg-body-tertiary shadow rounded-2">
             <div class="d-flex justify-content-between align-items-center mb-3">
@@ -72,9 +69,6 @@ const saveTitle = (card) => {
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
 </template>
 
 
