@@ -45,6 +45,8 @@ export const useCardsStore = defineStore('cards', {
                     todo.completed = !todo.completed;
                 }
             }
-        }
+        },
+
+
     }
 });

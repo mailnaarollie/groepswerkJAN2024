@@ -35,21 +35,40 @@ const saveTitle = (card) => {
     // Handle the case where the title is empty if needed
   }
 };
+const toggleDropdown = (card) => {
+  card.showDropdown = !card.showDropdown;
+};
+
+
+const generateCardKey = (card) => `${card.id}-${card.title}`;
 
 </script>
 
 <template>
   <div class="container">
-    <button @click="addCard" class="btn btn-primary mb-3">+ voeg een nieuwe bord toe</button>
+    <button @click="addCard" class="btn btn-primary mb-3">+ add list</button>
     <div class="row">
-      <div class="col-md-3 mb-3" v-for="card in cards" :key="card.id">
+      <div class="col-md-3 mb-3" v-for="card in cards" :key="generateCardKey(card)">
         <div class="card">
           <div class="card-body bg-body-tertiary shadow rounded-2">
             <div class="d-flex justify-content-between align-items-center mb-3">
               <h4 v-if="!card.editingTitle" @click="editTitle(card)" class="clickable-title">
                 {{ card.title ? card.title : 'Add Title' }}
               </h4>
-              <input style="border: 1px solid #ccc; border-radius: 5px;padding: 5px; margin: 0; width: 100%; box-sizing: border-box;" v-show="card.editingTitle" v-model="card.title" @blur="saveTitle(card)" @keyup.enter="saveTitle(card)" />
+              <input style="border: 1px solid #ccc; border-radius: 5px; padding: 5px; margin: 0; width: 100%; box-sizing: border-box;" v-show="card.editingTitle" v-model="card.title" @blur="saveTitle(card)" @keyup.enter="saveTitle(card)" />
+              <i class="bi bi-pencil-square text-black bg-white"></i>
+
+              <!-- Custom Dropdown -->
+              <div class="custom-dropdown" @click="toggleDropdown(card)">
+                <button><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                  <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+                </svg></button>
+                <ul :class="{ 'show': card.showDropdown }">
+                  <li @click="deleteCard(card.id)" class="text-danger">Delete</li>
+                </ul>
+              </div>
+              <!-- End Custom Dropdown -->
+
             </div>
             <div class="todo-list">
               <ul class="list-group mt-2">
@@ -64,7 +83,7 @@ const saveTitle = (card) => {
               <form @submit.prevent="addTodoItem(card)">
                 <div class="d-flex align-items-center">
                   <input class="form-control text-center my-auto" v-model="card.newTodo" type="text"
-                         placeholder="nieuwe taak"/>
+                         placeholder="new task"/>
                   <button class="btn btn-success mt-2 ms-2" type="submit">+</button>
                 </div>
               </form>
@@ -78,12 +97,49 @@ const saveTitle = (card) => {
 
 
 <style scoped>
-.completed {
-  text-decoration: line-through;
-}
+
 .clickable-title {
   cursor: pointer;
   user-select: none;
+}
+
+
+.custom-dropdown {
+  position: relative;
+}
+
+.custom-dropdown button {
+  cursor: pointer;
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  padding: 5px 10px;
+}
+
+.custom-dropdown ul {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: none;
+}
+
+.custom-dropdown ul li {
+  padding-right: 50px;
+  padding-left: 5px;
+  padding-bottom: 3px;
+  cursor: pointer;
+}
+
+.custom-dropdown ul li:hover {
+  background-color: #f8f9fa;
+}
+
+.custom-dropdown ul.show {
+  display: block;
 }
 </style>
 ```
