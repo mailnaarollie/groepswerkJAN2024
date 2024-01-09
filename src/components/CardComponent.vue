@@ -7,7 +7,6 @@ const store = useCardsStore()
 const addTodoItem = (card) => {
   if (card.newTodo.trim()) {
     store.addTodo(card.id, card.newTodo.trim())
-    store.updateNewTodo(card.id, '')
   }
 }
 const editTitle = (card) => {
@@ -26,6 +25,24 @@ const saveTitle = (card) => {
   }
 }
 
+<<<<<<< HEAD
+//drag and drop functionalities
+let draggedTask = null
+let fromListId = null
+
+const onDragStart = (task, listId) => {
+  draggedTask = task
+  fromListId = listId
+}
+
+const onDrop = (toListId) => {
+  if (draggedTask && fromListId !== toListId) {
+    draggedTask = null
+    fromListId = null
+  }
+}
+=======
+>>>>>>> 5b93cd8bbc84b4647e8cbbf8f4da5da029d31d83
 </script>
 
 <template>
