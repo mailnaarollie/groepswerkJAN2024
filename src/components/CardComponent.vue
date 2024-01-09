@@ -7,7 +7,6 @@ const store = useCardsStore()
 const addTodoItem = (card) => {
   if (card.newTodo.trim()) {
     store.addTodo(card.id, card.newTodo.trim())
-    store.updateNewTodo(card.id, '')
   }
 }
 const deleteTodoItem = (cardId, todoId) => {
@@ -52,7 +51,6 @@ const onDragStart = (task, listId) => {
 
 const onDrop = (toListId) => {
   if (draggedTask && fromListId !== toListId) {
-    store.moveTask(fromListId, toListId, draggedTask)
     draggedTask = null
     fromListId = null
   }
