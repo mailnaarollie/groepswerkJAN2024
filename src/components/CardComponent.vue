@@ -66,7 +66,7 @@ const onDrop = (toListId) => {
 
 <template>
   <div class="container">
-    <div class="custom-wrapper">
+    <div class="custom-wrapper vh-100">
       <draggable v-model="store.cards" group="lists" :item-key="card => card.id" @start="onDragStart" @end="onDrop"
                  class="d-flex flex-nowrap overflow-auto">
         <template #item="{ element, index }">
