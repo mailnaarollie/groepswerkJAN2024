@@ -1,11 +1,12 @@
 <script setup>
-import { useCardsStore } from '@/stores/CardElement.js';
+import {useCardsStore} from '@/stores/CardElement.js';
 import draggable from 'vuedraggable';
 import {ref} from "vue";
 
 
 const store = useCardsStore();
-const { cards } = store;
+const cards = ref(store.cards);
+
 
 const addTodoItem = (card) => {
   if (card.newTodo.trim()) {
@@ -41,87 +42,88 @@ const saveTitle = (card) => {
 const toggleDropdown = (card) => {
   card.showDropdown = !card.showDropdown;
 };
-let draggedCard = null;
-let fromIndex = null;
-const onDragStart = (card, index) => {
-  draggedCard = card;
-  fromIndex = index;
+
+
+let draggedTask = null;
+let fromListId = null;
+
+const onDragStart = (task, listId) => {
+  draggedTask = task;
+  fromListId = listId;
 };
 
-const onDrop = (toIndex) => {
-  if (draggedCard !== null && fromIndex !== toIndex) {
-    store.moveCard(fromIndex, toIndex, draggedCard);
-    draggedCard = null;
-    fromIndex = null;
+const onDrop = (toListId) => {
+  if (draggedTask && fromListId !== toListId) {
+    store.moveTask(fromListId, toListId, draggedTask);
+    draggedTask = null;
+    fromListId = null;
   }
 };
-
-const dragOptions = {
-  group: 'cards',
-  onStart: (evt) => {
-    // Add any custom logic when dragging starts
-  },
-  onEnd: (evt) => {
-    // Add any custom logic when dragging ends
-  },
+const onDragOver = (event) => {
+  event.preventDefault(); // Noodzakelijk voor het toestaan van de drop
 };
-
-
 </script>
 
 <template>
-  <draggable v-model="cards" :options="dragOptions" @start="onDragStart" @end="onDrop">
-    <template v-slot:item="{ element, index }">
-      <div class="col-md-3 mb-3">
-      <div class="card">
-        <div class="card-body bg-body-tertiary shadow rounded-2" @dragstart="onDragStart(index)">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <h4 v-if="!element.editingTitle" @click="editTitle(element)" class="clickable-title">
-                {{ element.title ? element.title : 'Add Title' }}
-              </h4>
-              <input style="border: 1px solid #ccc; border-radius: 5px; padding: 5px; margin: 0; width: 100%; box-sizing: border-box;"
-                     v-show="element.editingTitle" v-model="element.title" @blur="saveTitle(element)" @keyup.enter="saveTitle(element)" />
-              <i class="bi bi-pencil-square text-black bg-white"></i>
+  <div class="container">
+    <draggable v-model="cards" group="lists" :item-key="card => card.id" @start="onDragStart" @end="onDrop" class="d-flex flex-wrap">
+      <template #item="{ element, index }">
+        <div :key="index" class="col-md-3 m-3 card-container">
+          <div class="card">
+            <div class="card-body bg-body-tertiary shadow rounded-2">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 v-if="!element.editingTitle" @click="editTitle(element)" class="clickable-title">
+                  {{ element.title ? element.title : 'Add Title' }}
+                </h4>
+                <input
+                    style="border: 1px solid #ccc; border-radius: 5px; padding: 5px; margin: 0; width: 100%; box-sizing: border-box;"
+                    v-show="element.editingTitle" v-model="element.title" @blur="saveTitle(element)"
+                    @keyup.enter="saveTitle(element)"/>
+                <i class="bi bi-pencil-square text-black bg-white"></i>
 
-              <!-- Custom Dropdown -->
-              <div class="custom-dropdown" @click="toggleDropdown(element)">
-                <button>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
-                    <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
-                  </svg>
-                </button>
-                <ul :class="{ 'show': element.showDropdown }">
-                  <li @click="deleteCard(element.id)" class="text-danger">Delete</li>
-                </ul>
-              </div>
-              <!-- End Custom Dropdown -->
-
-            </div>
-            <div class="todo-list">
-              <ul class="list-group mt-2">
-
-                <li class="list-group-item" v-for="todo in element.todos" :key="todo.id" :class="{ 'list-group-item-success': todo.completed }">
-                  {{ todo.item }}
-                  <span class="actions float-end">
-                  <button class="btn btn-sm" @click="toggleCompleted(element.id, todo.id)">&#10004;</button>
-                  <button class="btn btn-sm text-danger" @click="deleteTodoItem(element.id, todo.id)">&#10060;</button>
-                </span>
-                </li>
-              </ul>
-              <form @submit.prevent="addTodoItem(element)">
-                <div class="d-flex align-items-center">
-                  <input class="form-control text-center my-auto" v-model="element.newTodo" type="text"
-                         placeholder="new task"/>
-                  <button class="btn btn-success mt-2 ms-2" type="submit">+</button>
+                <!-- Custom Dropdown -->
+                <div class="custom-dropdown" @click="toggleDropdown(element)">
+                  <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-three-dots" viewBox="0 0 16 16">
+                      <path
+                          d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+                    </svg>
+                  </button>
+                  <ul :class="{ 'show': element.showDropdown }">
+                    <li @click="deleteCard(element.id)" class="text-danger">Delete</li>
+                  </ul>
                 </div>
-              </form>
+                <!-- End Custom Dropdown -->
+
+              </div>
+              <div class="todo-list">
+                <ul class="list-group mt-2">
+
+                  <li class="list-group-item" v-for="todo in element.todos" :key="todo.id"
+                      :class="{ 'list-group-item-success': todo.completed }" draggable="true" @dragstart="onDragStart(todo, element.id)">
+                    {{ todo.item }}
+                    <span class="actions float-end">
+    <button class="btn btn-sm" @click="toggleCompleted(element.id, todo.id)">&#10004;</button>
+    <button class="btn btn-sm text-danger" @click="deleteTodoItem(element.id, todo.id)">&#10060;</button>
+  </span>
+                  </li>
+
+                </ul>
+                <form @submit.prevent="addTodoItem(element)">
+                  <div class="d-flex align-items-center">
+                    <input class="form-control text-center my-auto" v-model="element.newTodo" type="text"
+                           placeholder="new task"/>
+                    <button class="btn btn-success mt-2 ms-2" type="submit">+</button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </template>
-  </draggable>
-
+      </template>
+    </draggable>
+  </div>
 </template>
 
 

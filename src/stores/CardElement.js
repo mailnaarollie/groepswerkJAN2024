@@ -1,19 +1,28 @@
 // stores/cards.js
 import { defineStore } from 'pinia';
+import {ref} from "vue";
 
 
 export const useCardsStore = defineStore('cards', {
     state: () => ({
-        cards: []
+        cards: ref([]),
+        draggedTask: null,
+        fromListId: null,
     }),
     actions: {
         addCard() {
+            console.log('Adding card:', this.cards);
+
+            // Ensure that this.cards is initialized as an array
+            this.cards = this.cards || [];
+
             const newCard = {
                 id: this.cards.length + 1,
                 todos: [],
                 nextTodoId: 1,
                 newTodo: ''
             };
+
             this.cards.push(newCard);
         },
         updateNewTodo(cardId, newTodoValue) {
@@ -56,10 +65,5 @@ export const useCardsStore = defineStore('cards', {
                 }
             }
         },
-        moveCard(fromIndex, toIndex, card) {
-            this.cards.splice(fromIndex, 1);
-            this.cards.splice(toIndex, 0, card);
-        },
-
     }
 });
