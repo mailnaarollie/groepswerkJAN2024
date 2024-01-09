@@ -17,6 +17,10 @@ const deleteTodoItem = (cardId, todoId) => {
 const toggleCompleted = (cardId, todoId) => {
   store.toggleCompleted(cardId, todoId)
 }
+const deleteCard = (cardId) => {
+  // Use the store to delete the card
+  store.deleteCard(cardId)
+}
 const editTitle = (card) => {
   card.editingTitle = true;
 
@@ -29,12 +33,6 @@ const editTitle = (card) => {
     }
   });
 };
-
-const deleteCard = (cardId) => {
-  // Use the store to delete the card
-  store.deleteCard(cardId)
-}
-
 const saveTitle = (card) => {
   card.editingTitle = false
   // Save the updated title in your store or wherever you are storing the data
@@ -42,11 +40,8 @@ const saveTitle = (card) => {
     // Handle the case where the title is empty if needed
   }
 }
-const toggleDropdown = (card) => {
-  card.showDropdown = !card.showDropdown
-}
 
-
+//drag and drop functionalities
 let draggedTask = null
 let fromListId = null
 
@@ -92,21 +87,12 @@ const onDrop = (toListId) => {
                       @keyup.enter="saveTitle(element)"
                   />
 
-                  <i class="bi bi-pencil-square text-black bg-white"></i>
-                  <!-- Custom Dropdown -->
-                  <div class="custom-dropdown" @click="toggleDropdown(element)">
-                    <button>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                           class="bi bi-three-dots" viewBox="0 0 16 16">
-                        <path
-                            d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
-                      </svg>
-                    </button>
-                    <ul :class="{ 'show': element.showDropdown }">
-                      <li @click="deleteCard(element.id)" class="text-danger">Delete</li>
-                    </ul>
-                  </div>
-                  <!-- End Custom Dropdown -->
+                  <!-- Delete Card-->
+                  <button @click="deleteCard(element.id)"  style="background: none; border: none; outline: none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                  </svg>
+                  </button>
 
                 </div>
                 <div class="todo-list">
@@ -144,51 +130,11 @@ const onDrop = (toListId) => {
   </div>
 </template>
 
-
 <style scoped>
 
 .clickable-title {
   cursor: pointer;
   user-select: none;
-}
-
-
-.custom-dropdown {
-  position: relative;
-}
-
-.custom-dropdown button {
-  cursor: pointer;
-  background-color: #f8f9fa;
-  border: 1px solid #ced4da;
-  padding: 5px 10px;
-}
-
-.custom-dropdown ul {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: #fff;
-  border: 1px solid #ced4da;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: none;
-}
-
-.custom-dropdown ul li {
-  padding-right: 50px;
-  padding-left: 5px;
-  padding-bottom: 3px;
-  cursor: pointer;
-}
-
-.custom-dropdown ul li:hover {
-  background-color: #f8f9fa;
-}
-
-.custom-dropdown ul.show {
-  display: block;
 }
 
 .custom-wrapper {

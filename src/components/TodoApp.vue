@@ -2,7 +2,7 @@
 import { ref, nextTick } from 'vue';
 import CardElement from "@/components/CardElement.vue";
 
-const yourTitleVariable = ref("Add a title"); // Initialize with your default title
+const yourTitleVariable = ref("Board"); // Initialize with your default title
 const isEditingTitle = ref(false);
 
 const editTitle = () => {
