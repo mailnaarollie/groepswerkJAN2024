@@ -62,7 +62,8 @@ const onDrop = (toListId) => {
 
 <template>
   <div class="container">
-    <draggable v-model="store.cards" group="lists" :item-key="card => card.id" @start="onDragStart" @end="onDrop" class="d-flex flex-wrap">
+    <draggable v-model="store.cards" group="lists" :item-key="card => card.id" @start="onDragStart" @end="onDrop"
+               class="d-flex flex-wrap">
       <template #item="{ element, index }">
         <div :key="index" class="col-md-3 m-3 card-container">
           <div class="card">
@@ -97,9 +98,9 @@ const onDrop = (toListId) => {
                 <ul class="list-group mt-2">
 
                   <li class="list-group-item" v-for="todo in element.todos" :key="todo.id"
-                      :class="{ 'list-group-item-success': todo.completed }" draggable="true" @dragstart="onDragStart(todo, element.id)">
-                    {{ todo.item }}
-                    <span class="actions float-end">
+                      :class="{ 'list-group-item-success': todo.completed }">
+                  {{ todo.item }}
+                  <span class="actions float-end">
     <button class="btn btn-sm" @click="toggleCompleted(element.id, todo.id)">&#10004;</button>
     <button class="btn btn-sm text-danger" @click="deleteTodoItem(element.id, todo.id)">&#10060;</button>
   </span>
