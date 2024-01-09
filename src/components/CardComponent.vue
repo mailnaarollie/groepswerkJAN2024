@@ -170,5 +170,11 @@ const onDrop = (toListId) => {
 .custom-dropdown ul.show {
   display: block;
 }
+
+.custom-wrapper {
+  display: inline-flex;
+  width:auto;
+  overflow-inline: auto;
+}
 </style>
 ```
