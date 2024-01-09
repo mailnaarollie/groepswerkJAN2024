@@ -35,10 +35,10 @@ const saveTitle = () => {
         <div class="col mt-4">
           <div class="row mx-2">
             <div class="list-group pe-0">
-              <a href="#" class="list-group-item rounded list-group-item-action" aria-current="true">
-                + Add new board
+              <a href="betaal.html" class="list-group-item rounded list-group-item-action bg-body-tertiary" aria-current="true">
+                + Add new board<span class="kleineLeters">*PREMIUM</span>
               </a>
-              <a href="#" class="list-group-item rounded list-group-item-action my-2">+ Add a member</a>
+              <a href="betaal.html" class="list-group-item rounded list-group-item-action my-2 bg-body-tertiary">+ Add a member <span class="kleineLeters">*PREMIUM</span></a>
             </div>
           </div>
         </div>
@@ -84,5 +84,12 @@ const saveTitle = () => {
 </template>
 
 <style scoped>
+
+.kleineLeters{
+  font-size: 13px;
+  margin-left: 50px;
+  color: grey;
+  opacity: 50%;
+}
 
 </style>

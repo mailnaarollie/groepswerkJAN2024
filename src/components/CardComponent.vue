@@ -70,7 +70,7 @@ const onDrop = (toListId) => {
       <draggable v-model="store.cards" group="lists" :item-key="card => card.id" @start="onDragStart" @end="onDrop"
                  class="d-flex flex-nowrap overflow-auto">
         <template #item="{ element, index }">
-          <div :key="index" class=" m-3 card-container">
+          <div :key="index" style="height: 700px" class=" m-3  card-container">
             <div class="card" style="width: 300px">
               <div class="card-body bg-body-tertiary shadow rounded-2">
                 <div class="d-flex justify-content-between align-items-center mb-3">
