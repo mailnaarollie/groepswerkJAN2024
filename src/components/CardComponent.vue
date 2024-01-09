@@ -12,7 +12,6 @@ const addTodoItem = (card) => {
 const deleteTodoItem = (cardId, todoId) => {
   store.deleteTodo(cardId, todoId)
 }
-
 const toggleCompleted = (cardId, todoId) => {
   store.toggleCompleted(cardId, todoId)
 }
@@ -40,6 +39,7 @@ const saveTitle = (card) => {
   }
 }
 
+<<<<<<< HEAD
 //drag and drop functionalities
 let draggedTask = null
 let fromListId = null
@@ -55,12 +55,14 @@ const onDrop = (toListId) => {
     fromListId = null
   }
 }
+=======
+>>>>>>> 5b93cd8bbc84b4647e8cbbf8f4da5da029d31d83
 </script>
 
 <template>
   <div class="container">
     <div class="custom-wrapper" >
-      <draggable v-model="store.cards" group="lists" :item-key="card => card.id" @start="onDragStart" @end="onDrop"
+      <draggable v-model="store.cards" group="lists" :item-key="card => card.id"
                  class="d-flex flex-nowrap overflow-auto">
         <template #item="{ element, index }">
           <div :key="index" style="height: 700px" class=" m-3  card-container">
