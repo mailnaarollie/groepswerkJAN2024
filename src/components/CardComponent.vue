@@ -10,7 +10,6 @@ const addTodoItem = (card) => {
     store.updateNewTodo(card.id, '')
   }
 }
-
 const deleteTodoItem = (cardId, todoId) => {
   store.deleteTodo(cardId, todoId)
 }
@@ -188,10 +187,5 @@ const onDrop = (toListId) => {
   display: block;
 }
 
-.custom-wrapper {
-  display: inline-flex;
-  width:auto;
-  overflow-inline: auto;
-}
 </style>
 ```
