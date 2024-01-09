@@ -7,6 +7,7 @@ const store = useCardsStore()
 const addTodoItem = (card) => {
   if (card.newTodo.trim()) {
     store.addTodo(card.id, card.newTodo.trim())
+    store.updateNewTodo(card.id, '')
   }
 }
 const editTitle = (card) => {
@@ -24,8 +25,6 @@ const saveTitle = (card) => {
   if (card.title.trim() === '') {
   }
 }
-
-
 </script>
 
 <template>
@@ -41,7 +40,6 @@ const saveTitle = (card) => {
                     {{ element.title ? element.title : 'Add Title' }}
                   </h4>
                   <input :class="'form-control text-center my-auto title-input-' + element.id" v-show="element.editingTitle" v-model="element.title" @blur="saveTitle(element)" @keyup.enter="saveTitle(element)" />
-
                   <!-- Delete Card-->
                   <button @click="store.deleteCard(element.id)"  style="background: none; border: none; outline: none;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-x-lg" viewBox="0 0 16 16">
