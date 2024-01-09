@@ -6,7 +6,8 @@ const store = useCardsStore();
 const addCardToComponent = () => {
   console.log('Adding card to component');
   store.addCard();
-};</script>
+};
+</script>
 
 <template>
   <div class="container">
