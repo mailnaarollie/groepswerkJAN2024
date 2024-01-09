@@ -17,6 +17,10 @@ const deleteTodoItem = (cardId, todoId) => {
 const toggleCompleted = (cardId, todoId) => {
   store.toggleCompleted(cardId, todoId)
 }
+const deleteCard = (cardId) => {
+  // Use the store to delete the card
+  store.deleteCard(cardId)
+}
 const editTitle = (card) => {
   card.editingTitle = true;
 
@@ -29,12 +33,6 @@ const editTitle = (card) => {
     }
   });
 };
-
-const deleteCard = (cardId) => {
-  // Use the store to delete the card
-  store.deleteCard(cardId)
-}
-
 const saveTitle = (card) => {
   card.editingTitle = false
   // Save the updated title in your store or wherever you are storing the data
@@ -42,11 +40,8 @@ const saveTitle = (card) => {
     // Handle the case where the title is empty if needed
   }
 }
-const toggleDropdown = (card) => {
-  card.showDropdown = !card.showDropdown
-}
 
-
+//drag and drop functionalities
 let draggedTask = null
 let fromListId = null
 
@@ -135,15 +130,12 @@ const onDrop = (toListId) => {
   </div>
 </template>
 
-
 <style scoped>
 
 .clickable-title {
   cursor: pointer;
   user-select: none;
 }
-
-
 
 .custom-wrapper {
   display: flex;
