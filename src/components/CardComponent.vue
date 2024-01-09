@@ -69,42 +69,45 @@ const onDrop = (toListId) => {
           <div class="card">
             <div class="card-body bg-body-tertiary shadow rounded-2">
               <div class="d-flex justify-content-between align-items-center mb-3">
+                <!-- Title and Edit Icon -->
                 <h4 v-if="!element.editingTitle" @click="editTitle(element)" class="clickable-title">
                   {{ element.title ? element.title : 'Add Title' }}
                 </h4>
-                <input
-                    style="border: 1px solid #ccc; border-radius: 5px; padding: 5px; margin: 0; width: 100%; box-sizing: border-box;"
-                    v-show="element.editingTitle" v-model="element.title" @blur="saveTitle(element)"
-                    @keyup.enter="saveTitle(element)"/>
+                <input v-show="element.editingTitle" v-model="element.title" @blur="saveTitle(element)"
+                       @keyup.enter="saveTitle(element)" class="input-style" />
                 <i class="bi bi-pencil-square text-black bg-white"></i>
 
-                <!-- Custom Dropdown -->
-                <div class="custom-dropdown" @click="toggleDropdown(element)">
-                  <button>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                         class="bi bi-three-dots" viewBox="0 0 16 16">
-                      <path
-                          d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
-                    </svg>
-                  </button>
-                  <ul :class="{ 'show': element.showDropdown }">
-                    <li @click="deleteCard(element.id)" class="text-danger">Delete</li>
-                  </ul>
-                </div>
-                <!-- End Custom Dropdown -->
+                <!-- Verwijder Icoon -->
+                <button @click="deleteCard(element.id)" class="text-danger border-0 bg-transparent">
+                  <i class="bi bi-x-lg"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                  </svg></i>
+                </button>
 
               </div>
               <div class="todo-list">
                 <ul class="list-group mt-2">
-
                   <li class="list-group-item" v-for="todo in element.todos" :key="todo.id"
                       :class="{ 'list-group-item-success': todo.completed }">
-                  {{ todo.item }}
-                  <span class="actions float-end">
-    <button class="btn btn-sm" @click="toggleCompleted(element.id, todo.id)">&#10004;</button>
-    <button class="btn btn-sm text-danger" @click="deleteTodoItem(element.id, todo.id)">&#10060;</button>
-  </span>
+                    {{ todo.item }}
+                    <div class="actions float-end">
+                      <!-- Dropdown Trigger -->
+                      <button @click="toggleDropdown(todo)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                                 class="bi bi-three-dots" viewBox="0 0 16 16">
+                        <path
+                          d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+                      </svg></button>
+                      <!-- Dropdown Menu -->
+                      <div v-if="todo.showDropdown" class="dropdown-menu">
+                        <a @click="setTodoBackground(todo.id, 'green')">Afgewerkt</a>
+                        <a @click="setTodoBackground(todo.id, 'yellow')">Low</a>
+                        <a @click="setTodoBackground(todo.id, 'orange')">Medium</a>
+                        <a @click="setTodoBackground(todo.id, 'red')">High</a>
+                        <a @click="deleteTodoItem(element.id, todo.id)">Verwijderen</a>
+                      </div>
+                    </div>
                   </li>
+
 
                 </ul>
                 <form @submit.prevent="addTodoItem(element)">
