@@ -86,7 +86,7 @@ const onDrop = (toListId) => {
 
               </div>
               <div class="todo-list">
-                <ul class="list-group mt-2">
+                <ul class="list-group mt-2 ">
                   <li class="list-group-item" v-for="todo in element.todos" :key="todo.id"
                       :class="{ 'list-group-item-success': todo.completed }">
                     {{ todo.item }}
@@ -167,6 +167,9 @@ const onDrop = (toListId) => {
 
 .custom-dropdown ul li:hover {
   background-color: #f8f9fa;
+}
+.custom-dropdown ul.show{
+  display: block;
 }
 
 .custom-dropdown ul.show {
