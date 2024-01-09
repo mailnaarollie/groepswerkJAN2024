@@ -22,8 +22,7 @@ const editTitle = (card) => {
 };
 const saveTitle = (card) => {
   card.editingTitle = false
-  if (card.title.trim() === '') {
-  }
+  if (card.title.trim() === '') { /* empty */ }
 }
 </script>
 
@@ -36,7 +35,8 @@ const saveTitle = (card) => {
             <div class="card" style="width: 300px">
               <div class="card-body bg-body-tertiary shadow rounded-2">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h4 ref="titleInput" v-if="!element.editingTitle" @click="editTitle(element)" class="clickable-title" contenteditable="true">
+                  <h4 ref="titleInput" v-if="!element.editingTitle" @click="editTitle(element)"
+                      class="clickable-title" contenteditable="true">
                     {{ element.title ? element.title : 'Add Title' }}
                   </h4>
                   <input :class="'form-control text-center my-auto title-input-' + element.id" v-show="element.editingTitle" v-model="element.title" @blur="saveTitle(element)" @keyup.enter="saveTitle(element)" />
@@ -80,14 +80,16 @@ const saveTitle = (card) => {
 <style scoped>
 
 .clickable-title {
-  cursor: pointer;
+  cursor:pointer;
   user-select: none;
+
 }
 
 .custom-wrapper {
   display: flex;
   overflow-x: auto;
   margin: -10px;
+  cursor: grab;
 }
 
 </style>
