@@ -20,8 +20,6 @@ const { boards } = store;
 
 
 <style scoped>
-.completed {
-  text-decoration: line-through;
-}
+
 </style>
 ```

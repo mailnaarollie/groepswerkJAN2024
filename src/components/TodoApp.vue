@@ -1,6 +1,7 @@
 <script setup>
 import { ref, nextTick } from 'vue';
 import CardElement from "@/components/CardElement.vue";
+import BoardElement from "@/components/BoardElement.vue";
 
 const yourTitleVariable = ref("Board"); // Initialize with your default title
 const isEditingTitle = ref(false);
