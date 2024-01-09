@@ -3,8 +3,10 @@ import { useCardsStore } from '@/stores/CardElement.js';
 import CardComponent from "@/components/CardComponent.vue";
 
 const store = useCardsStore();
-const addCardToComponent = store.addCard;
-</script>
+const addCardToComponent = () => {
+  console.log('Adding card to component');
+  store.addCard();
+};</script>
 
 <template>
   <div class="container">
