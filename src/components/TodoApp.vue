@@ -30,7 +30,7 @@ const saveTitle = () => {
 <template>
   <nav class="navbar bg-dark">
     <div class="container">
-      <h2 class="text-dark">TRELLOW</h2>
+      <h2 class="text-dark">TRELL'OH!</h2>
       <div class="color-selector ">
         <label class="color-box lightgreen" :class="{checked: backgroundColor === 'lightgreen'}">
           <input type="radio" value="lightgreen" v-model="backgroundColor" />
@@ -53,8 +53,8 @@ const saveTitle = () => {
   </nav>
   <div class="row me-0 bg-secondary-subtle ">
     <div :style="{ backgroundColor:  sidebarColorTint }"
-         class="col-lg-3 col-xl-3 vh-100 bg-secondary-subtle shadow text-white">
-      <div class="row bg-secondary  pb-3">
+         class="col-lg-3 col-xl-3 vh-100 bg-primary-subtle shadow text-white sidebar">
+      <div class="row bg-secondary pb-3">
         <div class="col text-center mt-4 mx-5">
           <h4>MENU</h4>
         </div>
@@ -66,14 +66,16 @@ const saveTitle = () => {
               <a href="betaal.html"
                  class="list-group-item rounded list-group-item-action bg-tertiary border-success"
                  aria-current="true">
-                + Add new board<span class="kleineLeters text-warning"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                + Add new board<span class="kleineLetters text-warning"><svg xmlns="http://www.w3.org/2000/svg"
+                                                                             width="16"
                                                                 height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
   <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
 </svg> PREMIUM</span>
               </a>
               <a href="betaal.html"
                  class="list-group-item rounded list-group-item-action my-2 bg-tertiary border-success">+
-                Add a member <span class="kleineLeters text-warning"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                Add a member <span class="kleineLetters text-warning"><svg xmlns="http://www.w3.org/2000/svg"
+                                                                           width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
   <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
 </svg> PREMIUM</span></a>
             </div>
@@ -118,7 +120,7 @@ const saveTitle = () => {
 
 <style scoped>
 
-.kleineLeters{
+.kleineLetters{
   font-size: 13px;
   margin-left: 50px;
   color: grey;
@@ -153,6 +155,16 @@ const saveTitle = () => {
 .background-area {
   transition: background-color 0.5s ease; /* Zachte overgang van achtergrondkleur */
   background-size: 100vh; /* Zorgt ervoor dat de achtergrond altijd de volledige hoogte van het scherm inneemt */
+}
+
+.row.me-0 {
+  height: 100vh; /* Zet de hoogte gelijk aan de viewport hoogte */
+  overflow-y: hidden; /* Voorkomt verticaal scrollen */
+}
+
+.background-area, .sidebar {
+  max-height: 100vh; /* Zorgt ervoor dat deze elementen niet groter worden dan de viewport */
+  overflow-y: auto; /* Toont een scrollbar alleen als het nodig is */
 }
 
 
