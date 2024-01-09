@@ -1,6 +1,26 @@
 <script setup>
-
+import { ref, nextTick } from 'vue';
 import CardElement from "@/components/CardElement.vue";
+
+const yourTitleVariable = ref("Add a title"); // Initialize with your default title
+const isEditingTitle = ref(false);
+
+const editTitle = () => {
+  isEditingTitle.value = true;
+
+  // Use nextTick to wait for the DOM to update before focusing the h2 element
+  nextTick(() => {
+    const titleElement = document.querySelector('.editable-title'); // Adjust the class accordingly
+    if (titleElement) {
+      titleElement.focus();
+    }
+  });
+};
+
+const saveTitle = () => {
+  isEditingTitle.value = false;
+  // Add logic to save the updated title if needed
+};
 </script>
 
 <template>
@@ -41,12 +61,26 @@ import CardElement from "@/components/CardElement.vue";
 
     <div class="col-lg-9 col-xl-9 bg-body-tertiary vh-100">
       <div class="row m-0 py-4">
-        <h2 class="bg-white rounded shadow mx-3 py-3 px-4 mb-3">Taken Rooster</h2>
+        <h2
+          v-if="!isEditingTitle"
+          @click="editTitle"
+          class="bg-white rounded shadow mx-3 py-3 px-4 mb-3 clickable-title"
+        >
+          {{ yourTitleVariable }}
+        </h2>
+
+        <input
+          v-show="isEditingTitle"
+          class="form-control text-center my-auto editable-title"
+          v-model="yourTitleVariable"
+          @blur="saveTitle"
+          @keyup.enter="saveTitle"
+        />
+
         <card-element/>
       </div>
     </div>
   </div>
-
 </template>
 
 <style scoped>
