@@ -25,10 +25,7 @@ const saveTitle = (card) => {
   }
 }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 90e7b2fa4cd52ba1ec96d62e7a77ae9807930608
 </script>
 
 <template>
