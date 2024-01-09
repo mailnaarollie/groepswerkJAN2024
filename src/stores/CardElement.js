@@ -65,5 +65,19 @@ export const useCardsStore = defineStore('cards', {
                 }
             }
         },
+        moveTask(fromListId, toListId, task) {
+
+            const fromList = this.cards.find(card => card.id === fromListId);
+            const toList = this.cards.find(card => card.id === toListId);
+
+            if (fromList && toList) {
+                // Assuming task is an object with an id property
+                const movedTask = fromList.todos.find(todo => todo.id === task.id);
+                if (movedTask) {
+                    fromList.todos = fromList.todos.filter(todo => todo.id !== task.id);
+                    toList.todos.push(movedTask);
+                }
+            }
+        },
     }
 });

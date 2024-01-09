@@ -1,11 +1,9 @@
 <script setup>
 import {useCardsStore} from '@/stores/CardElement.js';
 import draggable from 'vuedraggable';
-import {ref} from "vue";
 
 
 const store = useCardsStore();
-const cards = ref(store.cards);
 
 
 const addTodoItem = (card) => {
@@ -59,14 +57,12 @@ const onDrop = (toListId) => {
     fromListId = null;
   }
 };
-const onDragOver = (event) => {
-  event.preventDefault(); // Noodzakelijk voor het toestaan van de drop
-};
+
 </script>
 
 <template>
   <div class="container">
-    <draggable v-model="cards" group="lists" :item-key="card => card.id" @start="onDragStart" @end="onDrop" class="d-flex flex-wrap">
+    <draggable v-model="store.cards" group="lists" :item-key="card => card.id" @start="onDragStart" @end="onDrop" class="d-flex flex-wrap">
       <template #item="{ element, index }">
         <div :key="index" class="col-md-3 m-3 card-container">
           <div class="card">
