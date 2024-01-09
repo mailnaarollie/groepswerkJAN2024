@@ -6,8 +6,7 @@ import {ref} from "vue";
 export const useCardsStore = defineStore('cards', {
     state: () => ({
         cards: ref([]),
-        draggedTask: null,
-        fromListId: null,
+
     }),
     actions: {
         addCard() {

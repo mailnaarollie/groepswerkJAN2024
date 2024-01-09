@@ -2,10 +2,7 @@
 import {useCardsStore} from '@/stores/CardElement.js';
 import draggable from 'vuedraggable';
 
-
 const store = useCardsStore();
-
-
 const addTodoItem = (card) => {
   if (card.newTodo.trim()) {
     store.addTodo(card.id, card.newTodo.trim());
@@ -57,7 +54,6 @@ const onDrop = (toListId) => {
     fromListId = null;
   }
 };
-
 </script>
 
 <template>
@@ -97,14 +93,19 @@ const onDrop = (toListId) => {
               <div class="todo-list">
                 <ul class="list-group mt-2">
 
-                  <li class="list-group-item" v-for="todo in element.todos" :key="todo.id"
-                      :class="{ 'list-group-item-success': todo.completed }">
-                  {{ todo.item }}
-                  <span class="actions float-end">
-    <button class="btn btn-sm" @click="toggleCompleted(element.id, todo.id)">&#10004;</button>
-    <button class="btn btn-sm text-danger" @click="deleteTodoItem(element.id, todo.id)">&#10060;</button>
-  </span>
-                  </li>
+                  <draggable v-model="element.todos" :group="'todos-'" @end="onDrop">
+                    <template v-slot:item="{ element: todo }">
+                      <li class="list-group-item" :class="{ 'list-group-item-success': todo.completed }">
+                        {{ todo.item }}
+                        <span class="actions float-end">
+        <button class="btn btn-sm" @click="toggleCompleted(element.id, todo.id)">&#10004;</button>
+        <button class="btn btn-sm text-danger" @click="deleteTodoItem(element.id, todo.id)">&#10060;</button>
+      </span>
+                      </li>
+                    </template>
+                  </draggable>
+
+
 
                 </ul>
                 <form @submit.prevent="addTodoItem(element)">
