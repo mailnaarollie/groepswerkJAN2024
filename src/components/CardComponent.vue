@@ -22,7 +22,9 @@ const editTitle = (card) => {
 };
 const saveTitle = (card) => {
   card.editingTitle = false
-  if (card.title.trim() === '') {}
+  if (card.title.trim() === '') {
+
+  }
 }
 </script>
 

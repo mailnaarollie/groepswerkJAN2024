@@ -1,4 +1,5 @@
 # todo-app
+teamleden: Emeline, Benjamin, Olivier
 
 This template should help get you started developing with Vue 3 in Vite.
 
@@ -34,6 +35,15 @@ npm run build
 npm run lint
 ```
 "# groepswerkJAN2024" 
+
+versions
+
+npm: '10.2.0',
+node: '21.1.0',
+
+
+
+
 
 
 
