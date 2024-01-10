@@ -3,6 +3,7 @@ import {useCardsStore} from '@/stores/CardElement.js'
 import draggable from 'vuedraggable'
 import {nextTick} from 'vue'
 
+
 const store = useCardsStore()
 const addTodoItem = (card) => {
   if (card.newTodo.trim()) {
@@ -22,22 +23,23 @@ const editTitle = (card) => {
 };
 const saveTitle = (card) => {
   card.editingTitle = false
-  if (card.title.trim() === '') {
-
-  }
+  if (card.title.trim() === '') { /* empty */ }
 }
 </script>
 
 <template>
   <div class="container">
     <div class="custom-wrapper" >
-      <draggable v-model="store.cards" group="lists" :item-key="card => card.id" class="d-flex flex-nowrap overflow-auto">
+      <draggable v-model="store.cards" group="lists" :item-key="card => card.id"
+                 class="d-flex flex-nowrap overflow-auto">
+
         <template #item="{ element, index }">
-          <div :key="index" style="height: 700px" class=" m-3  card-container">
+          <div :key="index" style="height: 700px" class="zoom-in-animation m-3 card-container">
             <div class="card" style="width: 300px">
-              <div class="card-body bg-body-tertiary shadow rounded-2">
+              <div class="card-body bg-body-tertiary shadow rounded-2 ">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h4 ref="titleInput" v-if="!element.editingTitle" @click="editTitle(element)" class="clickable-title" contenteditable="true">
+                  <h4 ref="titleInput" v-if="!element.editingTitle" @click="editTitle(element)"
+                      class="clickable-title" contenteditable="true">
                     {{ element.title ? element.title : 'Add Title' }}
                   </h4>
                   <input :class="'form-control text-center my-auto title-input-' + element.id" v-show="element.editingTitle" v-model="element.title" @blur="saveTitle(element)" @keyup.enter="saveTitle(element)" />
@@ -81,14 +83,32 @@ const saveTitle = (card) => {
 <style scoped>
 
 .clickable-title {
-  cursor: pointer;
+  cursor:pointer;
   user-select: none;
+
 }
 
 .custom-wrapper {
   display: flex;
   overflow-x: auto;
   margin: -10px;
+  cursor: grab;
 }
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.zoom-in-animation {
+  animation: zoomIn 0.3s ease-out;
+}
+
 
 </style>

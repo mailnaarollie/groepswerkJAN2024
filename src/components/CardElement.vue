@@ -11,7 +11,7 @@ const addCardToComponent = () => {
 
 <template>
   <div class="container">
-    <button @click="addCardToComponent" class="btn btn-primary mb-3">+ add list</button>
+    <button @click="addCardToComponent" class="btn btn-dark mb-3">+ </button>
     <div class="row">
       <card-component/>
     </div>
